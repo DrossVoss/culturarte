@@ -1,0 +1,245 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ */
+package culturarte.paneles;
+
+
+
+/*
+ Pasos para cambiar el tamaño de este panel:
+ 1) Abrir este archivo: UCConsultaColaboracionPanel.java
+2) En el constructor (UCConsultaColaboracionPanel), modificar la dimensión en setPreferredSize:
+   this.setPreferredSize(new java.awt.Dimension(W, H));
+   donde W es el ancho y H la altura en píxeles.
+3) Recompilar el proyecto (mvn/gradle/NetBeans) y ejecutar para probar.
+*/
+
+import javax.swing.JOptionPane;
+import culturarte.casosuso.UsuarioService;
+import culturarte.casosuso.ColaboracionService;
+import culturarte.casosuso.Usuario;
+import culturarte.casosuso.Colaboracion;
+
+
+/**
+ *
+ * @author tecnologo
+ */
+public class UCConsultaColaboracionPanel extends javax.swing.JPanel {
+
+    /**
+     * Creates new form UCConsultaColaboracionPanel
+     */
+    public UCConsultaColaboracionPanel() {
+        initComponents();
+        // --- Tamaño predeterminado: 1000 x 1000 ---
+        // Para cambiarlo: editar esta línea o seguir los pasos en el README dentro del proyecto.
+        this.setPreferredSize(new java.awt.Dimension(400, 100));
+
+                // <assistant-fixed-sizes> Ajustes de tamaño para mantener la misma lógica visual (labels a la izquierda, botones abajo, tamaños fijos)
+        try {
+            // intentar ajustar jPanel1 mediante reflection (si existe)
+            try {
+                java.lang.reflect.Field fPanel = this.getClass().getDeclaredField("jPanel1");
+                fPanel.setAccessible(true);
+                Object p = fPanel.get(this);
+                if (p instanceof javax.swing.JPanel) {
+                    javax.swing.JPanel panel = (javax.swing.JPanel)p;
+                    try { panel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10)); } catch (Exception ex) {}
+                    try { panel.setPreferredSize(new java.awt.Dimension(760,480)); } catch (Exception ex) {}
+                }
+            } catch (Exception ex) { /* no jPanel1 en este panel */ }
+
+            // etiquetas: tamaño consistente vía reflection
+            for (int i=1;i<=20;i++) {
+                try {
+                    java.lang.reflect.Field f = this.getClass().getDeclaredField("jLabel"+i);
+                    f.setAccessible(true);
+                    Object obj = f.get(this);
+                    if (obj instanceof javax.swing.JLabel) {
+                        try { ((javax.swing.JLabel)obj).setPreferredSize(new java.awt.Dimension(120,20)); } catch (Exception e) {}
+                    }
+                } catch (Exception e) {}
+            }
+
+            // campos de texto / areas comunes: aumentar columnas/preferred size si existen
+            String[] textFields = new String[] { "txtNombre","txtApellido","txtEmail","txtFecha","txtNickname","txtDireccion","txtWeb","txtLugar","txtCosto","txtDuracion","txtGenero","txtTelefono","txtBiografia" };
+            for (String nm: textFields) {
+                try {
+                    java.lang.reflect.Field f = this.getClass().getDeclaredField(nm);
+                    f.setAccessible(true);
+                    Object obj = f.get(this);
+                    if (obj instanceof javax.swing.JTextField) {
+                        try { ((javax.swing.JTextField)obj).setColumns(20); ((javax.swing.JTextField)obj).setPreferredSize(new java.awt.Dimension(200,24)); } catch (Exception ex) {}
+                    } else if (obj instanceof javax.swing.JTextArea) {
+                        try { ((javax.swing.JTextArea)obj).setColumns(20); ((javax.swing.JTextArea)obj).setPreferredSize(new java.awt.Dimension(400,100)); } catch (Exception ex) {}
+                    } else if (obj instanceof javax.swing.JComboBox) {
+                        try { ((javax.swing.JComboBox)obj).setPreferredSize(new java.awt.Dimension(200,24)); } catch (Exception ex) {}
+                    }
+                } catch (Exception e) {}
+            }
+
+            // botones: forzar tamaño y ubicacion en jPanel2 si existe
+            try {
+                java.lang.reflect.Field f2 = this.getClass().getDeclaredField("jPanel2");
+                f2.setAccessible(true);
+                Object p2 = f2.get(this);
+                if (p2 instanceof javax.swing.JPanel) {
+                    try { ((javax.swing.JPanel)p2).setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 10)); } catch (Exception ex) {}
+                }
+            } catch (Exception e) {}
+        } catch (Exception e) {
+            // no hacer nada si falla
+        }
+        // </assistant-fixed-sizes>
+
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        comboColaboradores = new javax.swing.JComboBox<>();
+        bLoad = new javax.swing.JButton();
+        btnVer = new javax.swing.JButton();
+        comboColabs = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txt = new javax.swing.JTextArea();
+
+        setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        comboColaboradores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboColaboradores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboColaboradoresActionPerformed(evt);
+            }
+        });
+        add(comboColaboradores);
+
+        bLoad.setText("Cargar");
+        bLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bLoadActionPerformed(evt);
+            }
+        });
+        add(bLoad);
+
+        btnVer.setText("Ver detalle");
+        btnVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerActionPerformed(evt);
+            }
+        });
+        add(btnVer);
+
+        comboColabs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        comboColabs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboColabsActionPerformed(evt);
+            }
+        });
+        add(comboColabs);
+
+        txt.setColumns(20);
+        txt.setRows(5);
+        jScrollPane1.setViewportView(txt);
+
+        add(jScrollPane1);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void comboColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColaboradoresActionPerformed
+    mostrar();    }//GEN-LAST:event_comboColaboradoresActionPerformed
+
+    private void bLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoadActionPerformed
+    cargar();    }//GEN-LAST:event_bLoadActionPerformed
+
+
+    private void cargar(){
+    try {
+            comboColaboradores.removeAllItems();
+            java.util.List<culturarte.casosuso.Usuario> _list = new culturarte.casosuso.UsuarioService().findByTipo("COLABORADOR");
+            for (culturarte.casosuso.Usuario u : _list) {
+                comboColaboradores.addItem(u.getId() + ":" + u.getNickname());
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+        }
+}
+
+    
+    private void mostrar() {
+        try {
+            if (comboColaboradores.getSelectedItem() == null) return;
+            String id = comboColaboradores.getSelectedItem().toString().split(":")[0].trim();
+            culturarte.casosuso.ColaboracionService cs = new culturarte.casosuso.ColaboracionService();
+            java.util.List<culturarte.casosuso.Colaboracion> list = cs.findAll();
+            comboColabs.removeAllItems();
+            StringBuilder sb = new StringBuilder();
+            for (culturarte.casosuso.Colaboracion c : list) {
+                if (c.getColaborador() != null && id.equals(c.getColaborador().getId())) {
+                    String item = c.getId() + ": " + (c.getPropuesta() == null ? "" : c.getPropuesta().getTitulo());
+                    comboColabs.addItem(item);
+                    sb.append("ID: ").append(c.getId())
+                      .append("  Fecha: ").append(c.getFecha() == null ? "(no disponible)" : c.getFecha().toString())
+                      .append("  Hora: ").append(c.getHora() == null ? "(no disponible)" : c.getHora().toString())
+                      .append("  Monto: ").append(c.getMonto() == null ? "(no disponible)" : c.getMonto().toString())
+                      .append("  Retorno: ").append(c.getTipoRetorno() == null ? "(no disponible)" : c.getTipoRetorno())
+                      .append("  Propuesta: ").append(c.getPropuesta() == null ? "" : c.getPropuesta().getTitulo())
+                      .append("\n");
+                }
+            }
+            txt.setText(sb.toString());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+        }
+    }
+
+    private void comboColabsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColabsActionPerformed
+        // no-op; use Ver detalle button
+    }//GEN-LAST:event_comboColabsActionPerformed
+
+    private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
+        try {
+            if (comboColabs.getSelectedItem() == null) return;
+            String sel = comboColabs.getSelectedItem().toString();
+            String id = sel.split(":")[0].trim();
+            culturarte.casosuso.ColaboracionService cs = new culturarte.casosuso.ColaboracionService();
+            culturarte.casosuso.Colaboracion c = cs.findById(id);
+            if (c == null) {
+                JOptionPane.showMessageDialog(this, "No se encontro la colaboracion seleccionada.", "Detalle", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            StringBuilder info = new StringBuilder();
+            info.append("ID: ").append(c.getId()).append("\n");
+            if (c.getColaborador() != null) info.append("Colaborador: ").append(c.getColaborador().getNickname()).append(" (").append(c.getColaborador().getId()).append(")\n");
+            if (c.getPropuesta() != null) info.append("Propuesta: ").append(c.getPropuesta().getTitulo()).append(" (").append(c.getPropuesta().getId()).append(")\n");
+            info.append("Fecha: ").append(c.getFecha()==null? "(no disponible)": c.getFecha().toString()).append("\n");
+            info.append("Hora: ").append(c.getHora()==null? "(no disponible)": c.getHora().toString()).append("\n");
+            info.append("Monto: ").append(c.getMonto()==null? "(no disponible)": c.getMonto().toString()).append("\n");
+            info.append("Tipo retorno: ").append(c.getTipoRetorno()==null? "(no disponible)": c.getTipoRetorno()).append("\n");
+            JOptionPane.showMessageDialog(this, info.toString(), "Detalle de colaboracion", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error mostrando detalle: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnVerActionPerformed
+
+
+// Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bLoad;
+    private javax.swing.JComboBox<String> comboColaboradores;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txt;
+    
+    private javax.swing.JComboBox<String> comboColabs;
+    private javax.swing.JButton btnVer;
+// End of variables declaration//GEN-END:variables
+}
